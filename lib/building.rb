@@ -1,8 +1,9 @@
 class Building
-  attr_reader :units, :renters
+  attr_reader :units, :renters, :rented_units
 
   def initialize
     @units = []
+    @rented_units = []
     @renters = []
   end
 
