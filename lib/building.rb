@@ -1,9 +1,8 @@
 class Building
-  attr_reader :units, :renters, :rented_units
+  attr_reader :units, :renters
 
   def initialize
     @units = []
-    @rented_units = []
     @renters = []
   end
 
@@ -22,5 +21,11 @@ class Building
     end
 
     total_rent/ units.length
+  end
+
+  def rented_units
+    rented_units = @units.select do |unit|
+      unit.renter != nil
+    end
   end
 end
