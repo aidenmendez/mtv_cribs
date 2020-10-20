@@ -54,4 +54,10 @@ class BuildingTest < Minitest::Test
   def test_building_has_rent_units_attr
     assert_equal [], @building.rented_units
   end
+
+  def test_building_can_add_to_rented_units
+    @unit2.add_renter(@renter1)
+
+    assert_equal [@unit2], @building.rented_units
+  end
 end
