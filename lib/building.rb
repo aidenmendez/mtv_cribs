@@ -36,4 +36,17 @@ class Building
 
     max_unit.renter 
   end
+
+  def units_by_number_of_bedrooms
+     bed_hash = {
+      3 => [],
+      2 => [],
+      1 => []
+    }
+
+    units.each do |unit|
+      bed_hash[unit.bedrooms] << unit.number
+    end
+    bed_hash
+  end
 end

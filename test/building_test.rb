@@ -86,7 +86,7 @@ class BuildingTest < Minitest::Test
           1 => ["A1"]
         }
 
-    assert equal sorted_units, @building.units_by_number_of_bedrooms
+    assert_equal sorted_units, @building.units_by_number_of_bedrooms
   end
 
 end
