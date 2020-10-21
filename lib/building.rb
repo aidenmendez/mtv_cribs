@@ -39,14 +39,36 @@ class Building
 
   def units_by_number_of_bedrooms
      bed_hash = {
-      3 => [],
-      2 => [],
-      1 => []
+
     }
 
     units.each do |unit|
-      bed_hash[unit.bedrooms] << unit.number
+      if bed_hash.key?(unit.bedrooms)
+        bed_hash[unit.bedrooms] << unit.number
+      else
+        bed_hash[unit.bedrooms] = [unit.number]
+      end
+      
     end
     bed_hash
+  end
+
+  def annual_breakdown
+    breakdown = {}
+    
+    rented_units.each do |unit|
+      breakdown[unit.renter.name] = unit.monthly_rent * 12
+    end
+
+    breakdown
+  end
+
+  def rooms_by_renter
+    rooms = {}
+    rented_units.each do |unit|
+      rooms[unit.renter] = { bedrooms: unit.bedrooms, bathrooms: unit.bathrooms }
+    end
+
+    rooms
   end
 end

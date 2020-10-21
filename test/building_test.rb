@@ -14,6 +14,7 @@ class BuildingTest < Minitest::Test
 
     @renter1 = Renter.new("Aurora")
     @renter2 = Renter.new("Tim")
+    @renter3 = Renter.new("Spencer")
   end
 
   def test_building_exists
@@ -89,13 +90,32 @@ class BuildingTest < Minitest::Test
     assert_equal sorted_units, @building.units_by_number_of_bedrooms
   end
 
-  def test_annual_breakdown
+  def test_annual_breakdown_method
     @building.add_unit(@unit1)
     @building.add_unit(@unit2)
-    @unit1.add_renter(@renter2)
-    @unit2.add_renter(@renter1)
+    @building.add_unit(@unit3)
+    @unit2.add_renter(@renter3)
+    breakdown1 = {"Spencer" => 11988}
+    breakdown2 = {"Aurora" => 14400, "Spencer" => 11988}
 
-    assert_equal
+    assert_equal breakdown1, @building.annual_breakdown
+
+    @unit1.add_renter(@renter1)
+
+    assert_equal breakdown2, @building.annual_breakdown
   end
 
+  def test_rooms_by_renter
+    @building.add_unit(@unit1)
+    @building.add_unit(@unit2)
+    @building.add_unit(@unit3)
+    @unit2.add_renter(@renter3)
+    @unit1.add_renter(@renter1)
+    breakdown = {
+                  @renter1 => {bathrooms: 1, bedrooms: 1}, 
+                  @renter3 => {bathrooms: 2, bedrooms: 2}
+                  }
+
+    assert_equal breakdown, @building.rooms_by_renter
+  end
 end
